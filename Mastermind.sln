@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind", "Mastermind\Mastermind.csproj", "{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind.UnitTests", "Mastermind.UnitTests\Mastermind.UnitTests.csproj", "{D266B949-DE30-48FE-92CC-6675BA794F9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D266B949-DE30-48FE-92CC-6675BA794F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D266B949-DE30-48FE-92CC-6675BA794F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D266B949-DE30-48FE-92CC-6675BA794F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D266B949-DE30-48FE-92CC-6675BA794F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

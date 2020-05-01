@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Mastermind.Business;
+using Mastermind.Business.Code;
+using Mastermind.DataAccess;
 
 namespace Mastermind
 {
@@ -7,14 +10,8 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
-            // var codeG = new RandomCode();
-            //
-            // foreach (var peg in codeG.GenerateSecretCode())
-            // {
-            //     Console.WriteLine(peg);
-            // }
-            //
-            
+
+
         }
     }
 }

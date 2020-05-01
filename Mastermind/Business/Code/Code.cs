@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Mastermind.Business.CodeGenerator;
 
-namespace Mastermind.Business
+namespace Mastermind.Business.Code
 {
     public class Code
     {

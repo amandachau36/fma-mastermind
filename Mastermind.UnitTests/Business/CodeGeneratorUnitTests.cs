@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Mastermind.Business;
-using Moq;
+using Mastermind.Business.Code;
+using Mastermind.Business.CodeGenerator;
+using Mastermind.DataAccess;
 using Xunit;
 
 namespace Mastermind.UnitTests.Business
@@ -13,7 +12,7 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeWithALengthOfFour()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator();  //TODO: rename generator
+            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));  //TODO: rename generator
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();
@@ -27,7 +26,7 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeOfColouredPegs()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator();
+            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();

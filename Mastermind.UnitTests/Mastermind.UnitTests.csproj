@@ -18,4 +18,19 @@
       <ProjectReference Include="..\Mastermind\Mastermind.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="DataAccess\InvalidConfig1.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DataAccess\InvalidConfig2.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DataAccess\InvalidConfig3.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="DataAccess\InvalidConfig4.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

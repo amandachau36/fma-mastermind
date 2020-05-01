@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Mastermind.Business.Code;
 
-namespace Mastermind.Business
+namespace Mastermind.Business.CodeGenerator
 {
     public interface ICodeGenerator
     {

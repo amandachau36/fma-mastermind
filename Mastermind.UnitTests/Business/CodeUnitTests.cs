@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Mastermind.Business;
+using Mastermind.Business.Code;
+using Mastermind.Business.CodeGenerator;
 using Moq;
 using Xunit;
 

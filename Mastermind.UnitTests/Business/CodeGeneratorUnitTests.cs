@@ -12,7 +12,7 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeWithALengthOfFour()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));  //TODO: rename generator
+            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));  
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();

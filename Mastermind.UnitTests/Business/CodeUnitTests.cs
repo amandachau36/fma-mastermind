@@ -17,11 +17,11 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new Code(codeGenerator);
+            var code = new CodeChecker(codeGenerator);
             
             //act
             code.GenerateSecretCode();
-
+        
             //assert
             var expectedSecretCode = new List<Peg>{ Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow};
             Assert.True(code.SecretCode.SequenceEqual(expectedSecretCode));
@@ -33,16 +33,16 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new Code(codeGenerator);
+            var code = new CodeChecker(codeGenerator);
             code.GenerateSecretCode();
-
+        
             //act
             var feedback = code.CheckGuess(guess);
             
             //assert
             Assert.Equal(expectedFeedback, feedback);
         }
-
+        
         public static IEnumerable<object[]> GetGuesses()
         {
             yield return new object[]
@@ -77,16 +77,16 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new Code(codeGenerator);
+            var code = new CodeChecker(codeGenerator);
             code.GenerateSecretCode();
-
+        
             //act
             var feedback = code.CheckGuess(guess);
             
             //assert
             Assert.Equal(expectedFeedback, feedback );
         }
-
+        
         public static IEnumerable<object[]> GetGuesses2()
         {
             yield return new object[]
@@ -94,7 +94,7 @@ namespace Mastermind.UnitTests.Business
                 new List<Peg>{ Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange},
                 new List<FeedBack>(),
             };
-
+        
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Red, Peg.Orange, Peg.Orange},
@@ -121,16 +121,16 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Blue});
-            var code = new Code(codeGenerator);
+            var code = new CodeChecker(codeGenerator);
             code.GenerateSecretCode();
-
+        
             //act
             var feedback = code.CheckGuess(guess);
             
             //assert
             Assert.Equal(expectedFeedback, feedback );
         }
-
+        
         public static IEnumerable<object[]> GetGuesses3()
         {
             yield return new object[]
@@ -144,7 +144,7 @@ namespace Mastermind.UnitTests.Business
                 new List<Peg>{ Peg.Blue, Peg.Orange, Peg.Orange, Peg.Blue},
                 new List<FeedBack>{ FeedBack.Black, FeedBack.White},
             };
-
+        
             yield return new object[]
             {
                 new List<Peg>{ Peg.Blue, Peg.Red, Peg.Green, Peg.Orange},

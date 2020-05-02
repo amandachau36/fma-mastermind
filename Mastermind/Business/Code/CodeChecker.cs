@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.Turns;
 
 namespace Mastermind.Business.Code
 {
-    public class Code
+    public class CodeChecker
     {
         private readonly ICodeGenerator _codeGenerator;
         public List<Peg> SecretCode { get; private set; } = new List<Peg>();
 
-        public Code(ICodeGenerator codeGenerator)
+        public CodeChecker(ICodeGenerator codeGenerator)
         {
             _codeGenerator = codeGenerator;
         }
@@ -21,12 +22,13 @@ namespace Mastermind.Business.Code
         
         public List<FeedBack> CheckGuess(List<Peg> guess)
         {
+            var localGuess = new List<Peg>(guess); //TODO: is this the best way to clone things 
             
-            var secretCode = SecretCode;
+            var secretCode = new List<Peg>(SecretCode);
 
-            var feedback = CheckForCorrectlyPositionedColours(guess, secretCode);
+            var feedback = CheckForCorrectlyPositionedColours(localGuess, secretCode);
 
-            var whiteFeedback = CheckForCorrectColoursAtIncorrectPositions(guess, secretCode);
+            var whiteFeedback = CheckForCorrectColoursAtIncorrectPositions(localGuess, secretCode);
 
             feedback.AddRange(whiteFeedback);
             

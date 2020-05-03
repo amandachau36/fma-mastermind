@@ -4,10 +4,12 @@ namespace Mastermind.DataAccess
     {
         public int CodeLength { get;}
         public int NumberOfColours { get; }
-        public MastermindConfiguration(int codeLength, int numberOfColours)
+        public int NumberOfTurns { get;}
+        public MastermindConfiguration(int codeLength, int numberOfColours, int numberOfTurns)
         {
             CodeLength = codeLength;
             NumberOfColours = numberOfColours;
+            NumberOfTurns = numberOfTurns;
         }
     }
 }

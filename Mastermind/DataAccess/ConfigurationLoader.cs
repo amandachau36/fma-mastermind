@@ -22,7 +22,9 @@ namespace Mastermind.DataAccess
             
             var numberOfColours = int.Parse(config[Constants.NumberOfColours]);
 
-            return new MastermindConfiguration(codeLength, numberOfColours);
+            var numberOfTurns = int.Parse(config[Constants.NumberOfTurns]);
+
+            return new MastermindConfiguration(codeLength, numberOfColours, numberOfTurns);
         }
 
     }

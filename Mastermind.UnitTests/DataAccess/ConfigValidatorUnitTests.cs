@@ -27,7 +27,7 @@ namespace Mastermind.UnitTests.DataAccess
         private static IConfiguration GetConfig(string file)
         {
             var config = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DataAccess"))
+                .SetBasePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles"))
                 .AddJsonFile(file)
                 .Build();
 

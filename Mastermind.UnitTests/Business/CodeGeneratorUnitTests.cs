@@ -12,11 +12,11 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeWithALengthOfFour()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));  
+            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6, 8));  
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();
-
+        
             //assert
             Assert.Equal(4, secretCode.Count);
             
@@ -26,11 +26,11 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeOfColouredPegs()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6));
+            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6, 8));
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();
-
+        
             //assert
             foreach (var peg in secretCode)
             {

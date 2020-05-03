@@ -20,16 +20,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="DataAccess\InvalidConfig1.json">
+      <None Update="ConfigFiles\InvalidConfig1.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="DataAccess\InvalidConfig2.json">
+      <None Update="ConfigFiles\InvalidConfig2.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="DataAccess\InvalidConfig3.json">
+      <None Update="ConfigFiles\InvalidConfig3.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="DataAccess\InvalidConfig4.json">
+      <None Update="ConfigFiles\InvalidConfig4.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -2,23 +2,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Business.Code;
 using Mastermind.Business.Turns;
+using Mastermind.DataAccess;
 
 namespace Mastermind.Business.BoardGame
 {
-    public class Board
+    public class Game
     {
         private readonly CodeChecker _codeChecker;
+        
+        private readonly MastermindConfiguration _config;
         public bool IsWinner { get; private set; }
         public bool IsGameOver { get; private set; }
-        
-        public int maxNumberOfTurns = 8;
-        public List<Turn> Turns { get; } = new List<Turn>();
+        public List<Turn> Turns { get; private set;  } = new List<Turn>();
 
-        public Board(CodeChecker codeChecker) //TODO: should board just be game? 
+        public Game(MastermindConfiguration config, CodeChecker codeChecker) 
         {
+            _config = config;
             _codeChecker = codeChecker;
         }
-        
+
+        public void StartNewGame()
+        {
+            _codeChecker.GenerateSecretCode();
+            IsWinner = false;
+            IsGameOver = false;
+            Turns = new List<Turn>();
+        }
+
         
         public void CheckGuess(List<Peg> guess)
         {
@@ -40,14 +50,15 @@ namespace Mastermind.Business.BoardGame
         private void CheckGameStatus(List<FeedBack> feedback)
         {
 
-            if (feedback.Count == 4 && feedback.All(x => x == FeedBack.Black) ) //TODO no magic numbers / use config
+
+            if (feedback.Count == _config.CodeLength && feedback.All(x => x == FeedBack.Black) ) 
             {
                 IsWinner = true;
                 IsGameOver = true;
                 return; 
             }
 
-            if (Turns.Count >= maxNumberOfTurns)
+            if (Turns.Count >= _config.NumberOfTurns)
             {
                 IsGameOver = true;
             }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
 using Mastermind.Business.Turns;
+using Mastermind.DataAccess;
 using Xunit;
 
 namespace Mastermind.UnitTests.Business
@@ -15,7 +17,8 @@ namespace Mastermind.UnitTests.Business
             //arrange 
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var code = new CodeChecker(codeGenerator);
-            var board = new Board(code);
+            var config = new MastermindConfiguration(4,6, 8 );
+            var board = new Game(config, code);
             code.GenerateSecretCode();
             
             //act
@@ -23,15 +26,11 @@ namespace Mastermind.UnitTests.Business
             board.CheckGuess(guess);
             
             //assert
-            var expectedObject = new Turn(
-                new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow},
-                new List<FeedBack> {FeedBack.Black, FeedBack.White});
-            
-            var expectedObject1 = new Turn(
+            var expectedTurn = new Turn(
                 new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow},
                 new List<FeedBack> {FeedBack.Black, FeedBack.White});
 
-            expectedObject1.Should().BeEquivalentTo(expectedObject);
+            board.Turns.Last().Should().BeEquivalentTo(expectedTurn);
            
         }
         
@@ -42,7 +41,8 @@ namespace Mastermind.UnitTests.Business
             //arrange 
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var code = new CodeChecker(codeGenerator);
-            var board = new Board(code);
+            var config = new MastermindConfiguration(4,6, 8 );
+            var board = new Game(config, code);
             code.GenerateSecretCode();
             
             //act
@@ -92,22 +92,22 @@ namespace Mastermind.UnitTests.Business
              //arrange 
              var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
              var code = new CodeChecker(codeGenerator);
-             var board = new Board(code);
+             var config = new MastermindConfiguration(4,6, 8 );
+             var board = new Game(config, code);
              code.GenerateSecretCode();
-
-
-             for (int i = 0; i < numberOfTurns; i++)
+        
+        
+             for (var i = 0; i < numberOfTurns; i++)
              {
                  var guess = new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow};
                  board.CheckGuess(guess);
-                 
              }
              
             
              //act
              var finalGuess = new List<Peg> {Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange};
              board.CheckGuess(finalGuess);
-  
+        
              
              
              //assert
@@ -131,53 +131,5 @@ namespace Mastermind.UnitTests.Business
             
         }
         
-        
-        // [Theory]
-        // [MemberData(nameof(GetNumberOfTurns))] //TODO: you are here! 
-        // public void It_Should_Set_IsGameOver_To_True_(int numberOfTurns, bool expectedIsGameOver)
-        // {
-        //     //arrange 
-        //     var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-        //     var code = new CodeChecker(codeGenerator);
-        //     var board = new Board(code);
-        //     code.GenerateSecretCode();
-        //
-        //
-        //     for (int i = 0; i < numberOfTurns; i++)
-        //     {
-        //         var guess = new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow};
-        //         board.CheckGuess(guess);
-        //          
-        //     }
-        //      
-        //     
-        //     //act
-        //     var finalGuess = new List<Peg> {Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange};
-        //     board.CheckGuess(finalGuess);
-        //
-        //      
-        //      
-        //     //assert
-        //     Assert.Equal(expectedIsGameOver, board.IsGameOver);
-        //     
-        // }
-        //
-        // public static IEnumerable<object[]> GetNumberOfTurns()
-        // {
-        //     yield return new object[]
-        //     {
-        //         7, //TODO: no magic numbers 
-        //         true,
-        //     };
-        //     
-        //     yield return new object[]
-        //     {
-        //         6,
-        //         false,
-        //     };
-        //     
-        // }
-
-       
     }
 }

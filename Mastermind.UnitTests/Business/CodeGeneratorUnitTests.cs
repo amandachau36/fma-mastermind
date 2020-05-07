@@ -1,7 +1,8 @@
 using System;
-using Mastermind.Business.Code;
 using Mastermind.Business.CodeGenerator;
 using Mastermind.DataAccess;
+using Mastermind.DataAccess.Enums;
+using Mastermind.DataAccess.MastermindConfigurationBuilder;
 using Xunit;
 
 namespace Mastermind.UnitTests.Business
@@ -12,7 +13,11 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeWithALengthOfFour()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6, 8));  
+            var config = new MastermindConfig
+            {
+                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+            };
+            var randomCodeGenerator = new RandomCodeGenerator(config);  
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();
@@ -26,7 +31,11 @@ namespace Mastermind.UnitTests.Business
         public void It_Should_Return_A_SecretCodeOfColouredPegs()
         {
             //arrange
-            var randomCodeGenerator = new RandomCodeGenerator(new MastermindConfiguration(4, 6, 8));
+            var config = new MastermindConfig
+            {
+                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+            };
+            var randomCodeGenerator = new RandomCodeGenerator(config);
             
             //act
             var secretCode = randomCodeGenerator.GenerateSecretCode();

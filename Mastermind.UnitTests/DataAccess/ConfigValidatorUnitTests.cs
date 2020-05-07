@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Mastermind.Business.Code;
 using Mastermind.DataAccess;
-using Mastermind.UnitTests.Business;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
@@ -13,51 +11,56 @@ namespace Mastermind.UnitTests.DataAccess
     {
         [Theory]
         [MemberData(nameof(GetConfiguration))]
-        public void It_Should_ThrowInvalidConfigurationError_WhenGivenInvalidConfiguration(IConfiguration configuration, string errorMessage)
+        public void It_Should_ThrowInvalidConfigurationError_WhenGivenInvalidConfiguration(string path, string errorMessage)
         {
 
-            Action actual = () => ConfigValidator.Validate(configuration);
+            // TODO: put in here instead - instead in config file/easier to read
+            // var config1 = new MastermindConfig( 2, 3, 4) 
+              
+            Action actual = () => ConfigurationLoader.LoadMastermindConfiguration(path);  //TODO: should I make the process methods public so I can test them without the path? 
             
             //assert
             var exception = Assert.Throws<InvalidMastermindConfigurationException>(actual);
             Assert.Equal(errorMessage, exception.Message);
 
         }
-
-        private static IConfiguration GetConfig(string file)
-        {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles"))
-                .AddJsonFile(file)
-                .Build();
-
-            return config;
-        }
-
+        
         public static IEnumerable<object[]> GetConfiguration()
         {
             yield return new object[]
             {
-                GetConfig("InvalidConfig1.json"),
-                $"Not a valid {Constants.CodeLength}: four. Must be an int between 3 - 6",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig1.json"),
+                $"Not a valid {Constants.CodeLength}: four. Must be an int.",
             };
 
             yield return new object[]
             {
-                GetConfig("InvalidConfig2.json"),
-                $"Not a valid {Constants.CodeLength}: 1. Must be an int between 3 - 6",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig2.json"),
+                $"Not a valid {Constants.CodeLength}: 1. Must be between 3 - 6",
             };
         
             yield return new object[]
             {
-                GetConfig("InvalidConfig3.json"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig3.json"),
                 $"Not a valid {Constants.NumberOfColours}: six. Must be an int.",
             };
             
             yield return new object[]
             {
-                GetConfig("InvalidConfig4.json"),
-                $"Not a valid {Constants.NumberOfColours}: 9. Must be 8 or less.",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig4.json"),
+                $"Not a valid {Constants.NumberOfColours}: 9. Must be between 2 - 8",
+            };
+            
+            yield return new object[]
+            {
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig5.json"),
+                $"Not a valid {Constants.NumberOfTurns}: ten. Must be an int.",
+            };
+            
+            yield return new object[]
+            {
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig6.json"),
+                $"Not a valid {Constants.NumberOfTurns}: 1000. Must be between 3 - 20",
             };
             
         }

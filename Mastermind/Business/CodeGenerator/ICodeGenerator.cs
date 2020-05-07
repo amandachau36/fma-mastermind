@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Mastermind.Business.Code;
+using Mastermind.DataAccess.Enums;
 
 namespace Mastermind.Business.CodeGenerator
 {

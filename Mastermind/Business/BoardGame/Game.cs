@@ -3,6 +3,9 @@ using System.Linq;
 using Mastermind.Business.Code;
 using Mastermind.Business.Turns;
 using Mastermind.DataAccess;
+using Mastermind.DataAccess.Enums;
+using Mastermind.DataAccess.MastermindConfigurationBuilder;
+
 
 namespace Mastermind.Business.BoardGame
 {
@@ -10,12 +13,12 @@ namespace Mastermind.Business.BoardGame
     {
         private readonly CodeChecker _codeChecker;
         
-        private readonly MastermindConfiguration _config;
+        private readonly MastermindConfig _config;
         public bool IsWinner { get; private set; }
         public bool IsGameOver { get; private set; }
         public List<Turn> Turns { get; private set;  } = new List<Turn>();
 
-        public Game(MastermindConfiguration config, CodeChecker codeChecker) 
+        public Game(MastermindConfig config, CodeChecker codeChecker) 
         {
             _config = config;
             _codeChecker = codeChecker;
@@ -28,7 +31,6 @@ namespace Mastermind.Business.BoardGame
             IsGameOver = false;
             Turns = new List<Turn>();
         }
-
         
         public void CheckGuess(List<Peg> guess)
         {
@@ -37,7 +39,11 @@ namespace Mastermind.Business.BoardGame
             UpdateTurnHistory(guess, feedback);
             
             CheckGameStatus(feedback);
-            
+        }
+
+        public List<Peg> GetSecretCode()
+        {
+            return _codeChecker.SecretCode;
         }
 
         private void UpdateTurnHistory(List<Peg> guess, List<FeedBack> feedback)
@@ -51,14 +57,14 @@ namespace Mastermind.Business.BoardGame
         {
 
 
-            if (feedback.Count == _config.CodeLength && feedback.All(x => x == FeedBack.Black) ) 
+            if (feedback.Count == _config[Constants.CodeLength] && feedback.All(x => x == FeedBack.Black) ) 
             {
                 IsWinner = true;
                 IsGameOver = true;
                 return; 
             }
 
-            if (Turns.Count >= _config.NumberOfTurns)
+            if (Turns.Count >= _config[Constants.NumberOfTurns])
             {
                 IsGameOver = true;
             }

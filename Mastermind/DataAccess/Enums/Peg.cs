@@ -1,6 +1,6 @@
-namespace Mastermind.Business.Code
+namespace Mastermind.DataAccess.Enums
 {
-    public enum Peg //TODO: Data access layer? 
+    public enum Peg 
     {
         Red, 
         Blue, 

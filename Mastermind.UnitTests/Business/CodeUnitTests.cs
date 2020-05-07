@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using Mastermind.Business;
 using Mastermind.Business.Code;
 using Mastermind.Business.CodeGenerator;
-using Moq;
+using Mastermind.DataAccess.Enums;
 using Xunit;
 
 namespace Mastermind.UnitTests.Business
@@ -17,7 +14,8 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new CodeChecker(codeGenerator);
+            var nonRandomizer = new NonRandomizer();
+            var code = new CodeChecker(codeGenerator, nonRandomizer);
             
             //act
             code.GenerateSecretCode();
@@ -33,7 +31,8 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new CodeChecker(codeGenerator);
+            var nonRandomizer = new NonRandomizer();
+            var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();
         
             //act
@@ -77,7 +76,8 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
-            var code = new CodeChecker(codeGenerator);
+            var nonRandomizer = new NonRandomizer();
+            var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();
         
             //act
@@ -121,7 +121,8 @@ namespace Mastermind.UnitTests.Business
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Blue});
-            var code = new CodeChecker(codeGenerator);
+            var nonRandomizer = new NonRandomizer();
+            var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();
         
             //act
@@ -178,6 +179,14 @@ namespace Mastermind.UnitTests.Business
         public List<Peg> GenerateSecretCode()
         {
             return _secretCode;
+        }
+    }
+    
+    internal class NonRandomizer : IFeedbackRandomizer
+    {
+        public List<FeedBack> Randomize(List<FeedBack> feedback)
+        {
+            return feedback;
         }
     }
 }

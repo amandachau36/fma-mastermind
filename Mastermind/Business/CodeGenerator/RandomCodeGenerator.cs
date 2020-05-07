@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using Mastermind.Business.Code;
 using Mastermind.DataAccess;
+using Mastermind.DataAccess.Enums;
+using Mastermind.DataAccess.MastermindConfigurationBuilder;
 
 namespace Mastermind.Business.CodeGenerator
 {
     public class RandomCodeGenerator : ICodeGenerator
     {
-        private readonly MastermindConfiguration _config;
+        private readonly MastermindConfig _config;
 
-        public RandomCodeGenerator(MastermindConfiguration mastermindConfiguration)
+        public RandomCodeGenerator(MastermindConfig mastermindConfiguration)
         {
             _config = mastermindConfiguration;
         }
@@ -19,9 +21,9 @@ namespace Mastermind.Business.CodeGenerator
             
             var random = new Random();
             
-            for (var i = 0; i < _config.CodeLength; i++)   
+            for (var i = 0; i < _config[Constants.CodeLength]; i++)   
             {
-                var randomFlag = random.Next(0, _config.NumberOfColours);
+                var randomFlag = random.Next(0, _config[Constants.NumberOfColours]);
                 secretCode.Add((Peg)randomFlag);
             }
 

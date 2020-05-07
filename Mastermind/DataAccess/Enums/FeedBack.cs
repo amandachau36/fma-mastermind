@@ -1,4 +1,4 @@
-namespace Mastermind.Business.Code
+namespace Mastermind.DataAccess.Enums
 {
     public enum FeedBack
     {

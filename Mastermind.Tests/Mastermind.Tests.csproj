@@ -4,6 +4,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
 
         <IsPackable>false</IsPackable>
+
+        <AssemblyName>Mastermind.Tests</AssemblyName>
+
+        <RootNamespace>Mastermind.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -41,6 +45,10 @@
       <None Update="ConfigFiles\InvalidConfig6.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="UnitTests" />
     </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using Mastermind.Business.Code;
 using Mastermind.DataAccess.Enums;
 using Xunit;
 
-namespace Mastermind.UnitTests.Business
+namespace Mastermind.Tests.UnitTests.Business
 {
     public class FeedbackRandomizerUnitTests
     {

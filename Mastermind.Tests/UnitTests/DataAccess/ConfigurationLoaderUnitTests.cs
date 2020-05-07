@@ -4,7 +4,7 @@ using Mastermind.DataAccess;
 using Xunit;
 
 
-namespace Mastermind.UnitTests.DataAccess
+namespace Mastermind.Tests.UnitTests.DataAccess
 {
     public class ConfigurationLoaderUnitTests
     {

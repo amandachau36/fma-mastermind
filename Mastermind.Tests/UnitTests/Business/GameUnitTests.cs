@@ -9,7 +9,7 @@ using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
 using Xunit;
 
-namespace Mastermind.UnitTests.Business
+namespace Mastermind.Tests.UnitTests.Business
 {
     public class GameUnitTests
     {

@@ -5,7 +5,7 @@ using Mastermind.DataAccess;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace Mastermind.UnitTests.DataAccess
+namespace Mastermind.Tests.UnitTests.DataAccess
 {
     public class ConfigValidatorUnitTests
     {

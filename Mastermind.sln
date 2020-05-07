@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind", "Mastermind\Mastermind.csproj", "{41EB0E0B-BDDC-458A-8DC4-95DCD43EA69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind.UnitTests", "Mastermind.UnitTests\Mastermind.UnitTests.csproj", "{D266B949-DE30-48FE-92CC-6675BA794F9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mastermind.Tests", "Mastermind.Tests\Mastermind.Tests.csproj", "{D266B949-DE30-48FE-92CC-6675BA794F9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

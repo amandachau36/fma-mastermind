@@ -6,7 +6,7 @@ using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
 using Xunit;
 
-namespace Mastermind.UnitTests.Client
+namespace Mastermind.Tests.UnitTests.Client
 {
     public class ConsoleInputProcessorUnitTests
     {

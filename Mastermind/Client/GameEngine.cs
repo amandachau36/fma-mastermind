@@ -29,7 +29,7 @@ namespace Mastermind.Client
 
         public void PlayGame()
         {
-            IntroToGame();
+            StartGame();
 
             while (!_game.IsGameOver)  //TODO: display number of turns left
             { 
@@ -45,8 +45,10 @@ namespace Mastermind.Client
            
         }
 
-        private void IntroToGame()
+        private void StartGame()
         {
+            _game.StartNewGame();
+            
             _display.Display(Constants.Welcome);
 
             _display.Display(Constants.Border);
@@ -89,7 +91,7 @@ namespace Mastermind.Client
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                _display.Display(e.Message);
             }
             
             return processedInput;

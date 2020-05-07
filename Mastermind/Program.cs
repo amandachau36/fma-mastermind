@@ -21,8 +21,7 @@ namespace Mastermind
             var codeChecker = new CodeChecker(randomCodeGenerator, feedbackRandomizer);
             
             var game = new Game(config, codeChecker);
-            game.StartNewGame();
-            
+
             var gameEngine = new GameEngine(new ConsoleDisplay(), new ConsoleInputCollector(), new ConsoleInputProcessor(config), game);
             
             gameEngine.PlayGame();

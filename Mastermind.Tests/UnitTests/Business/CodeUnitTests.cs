@@ -5,7 +5,7 @@ using Mastermind.Business.CodeGenerator;
 using Mastermind.DataAccess.Enums;
 using Xunit;
 
-namespace Mastermind.UnitTests.Business
+namespace Mastermind.Tests.UnitTests.Business
 {
     public class CodeUnitTests
     {

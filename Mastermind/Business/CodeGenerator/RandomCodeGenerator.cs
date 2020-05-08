@@ -21,9 +21,9 @@ namespace Mastermind.Business.CodeGenerator
             
             var random = new Random();
             
-            for (var i = 0; i < _config[Constants.CodeLength]; i++)   
+            for (var i = 0; i < _config[DataConstants.CodeLength]; i++)   
             {
-                var randomFlag = random.Next(0, _config[Constants.NumberOfColours]);
+                var randomFlag = random.Next(0, _config[DataConstants.NumberOfColours]);
                 secretCode.Add((Peg)randomFlag);
             }
 

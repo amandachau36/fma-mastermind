@@ -30,37 +30,37 @@ namespace Mastermind.Tests.UnitTests.DataAccess
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig1.json"),
-                $"Not a valid {Constants.CodeLength}: four. Must be an int.",
+                $"Not a valid {DataConstants.CodeLength}: four. Must be an int.",
             };
 
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig2.json"),
-                $"Not a valid {Constants.CodeLength}: 1. Must be between 3 - 6",
+                $"Not a valid {DataConstants.CodeLength}: 1. Must be between 3 - 6",
             };
         
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig3.json"),
-                $"Not a valid {Constants.NumberOfColours}: six. Must be an int.",
+                $"Not a valid {DataConstants.NumberOfColours}: six. Must be an int.",
             };
             
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig4.json"),
-                $"Not a valid {Constants.NumberOfColours}: 9. Must be between 2 - 8",
+                $"Not a valid {DataConstants.NumberOfColours}: 9. Must be between 2 - 8",
             };
             
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig5.json"),
-                $"Not a valid {Constants.NumberOfTurns}: ten. Must be an int.",
+                $"Not a valid {DataConstants.NumberOfTurns}: ten. Must be an int.",
             };
             
             yield return new object[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "InvalidConfig6.json"),
-                $"Not a valid {Constants.NumberOfTurns}: 1000. Must be between 3 - 20",
+                $"Not a valid {DataConstants.NumberOfTurns}: 1000. Must be between 3 - 20",
             };
             
         }

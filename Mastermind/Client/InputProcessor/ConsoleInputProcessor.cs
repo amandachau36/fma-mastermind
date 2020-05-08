@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
 
@@ -36,9 +37,16 @@ namespace Mastermind.Client.InputProcessor
             
         }
 
-        private Peg ConvertToPeg(string stringPeg) //TODO:Throw exception if not valid based on CONFIG
+        private Peg ConvertToPeg(string stringPeg) 
         {
             if (!Enum.TryParse(stringPeg, true, out Peg peg))
+            {
+                throw new InvalidInputException($"Error: {stringPeg} is not an invalid colour!");
+            }
+
+            var maxPegFlag = _mastermindConfig[DataConstants.NumberOfColours] - 1;
+
+            if ((int) peg > maxPegFlag)
             {
                 throw new InvalidInputException($"Error: {stringPeg} is not an invalid colour!");
             }
@@ -49,9 +57,9 @@ namespace Mastermind.Client.InputProcessor
         
         private void ThrowInvalidInputExceptionForInvalidListLengths(int lengthOfList)
         {
-            if (lengthOfList != _mastermindConfig[Constants.CodeLength])
+            if (lengthOfList != _mastermindConfig[DataConstants.CodeLength])
             {
-                throw new InvalidInputException($"Error: you must pass in {_mastermindConfig[Constants.CodeLength]} colours!");  
+                throw new InvalidInputException($"Error: you must pass in {_mastermindConfig[DataConstants.CodeLength]} colours!");  
             }
 
         }

@@ -22,7 +22,7 @@ namespace Mastermind.Tests.UnitTests.Business
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             var game = new Game(config, code);
             game.StartNewGame();
@@ -51,7 +51,7 @@ namespace Mastermind.Tests.UnitTests.Business
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             var game = new Game(config, code);
             game.StartNewGame();
@@ -107,7 +107,7 @@ namespace Mastermind.Tests.UnitTests.Business
              var code = new CodeChecker(codeGenerator, nonRandomizer);
              var config = new MastermindConfig
              {
-                 [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                 [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
              };
              var game = new Game(config, code);
              code.GenerateSecretCode();

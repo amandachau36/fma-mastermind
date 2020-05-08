@@ -14,11 +14,11 @@ namespace Mastermind.DataAccess
                 .AddJsonFile(path)
                 .Build();
             
-            var codeLength = ProcessCodeLength(config[Constants.CodeLength]);
+            var codeLength = ProcessCodeLength(config[DataConstants.CodeLength]);
 
-            var numberOfColours = ProcessNumberOfColours(config[Constants.NumberOfColours]);
+            var numberOfColours = ProcessNumberOfColours(config[DataConstants.NumberOfColours]);
 
-            var numberOfTurns = ProcessNumberOfTurns(config[Constants.NumberOfTurns]);
+            var numberOfTurns = ProcessNumberOfTurns(config[DataConstants.NumberOfTurns]);
             
             var configBuilder = new MastermindConfigBuilder();
             configBuilder.BuildCodeLength(codeLength);
@@ -30,9 +30,9 @@ namespace Mastermind.DataAccess
         
         private static int ProcessCodeLength(string codeLength) 
         {
-            var processedCodeLength = ConvertToInt(Constants.CodeLength, codeLength);
+            var processedCodeLength = ConvertToInt(DataConstants.CodeLength, codeLength);
             
-            ThrowExceptionIfValueIsInvalid(Constants.CodeLength, processedCodeLength, Constants.MinimumCodeLength, Constants.MaximumCodeLength);
+            ThrowExceptionIfValueIsInvalid(DataConstants.CodeLength, processedCodeLength, DataConstants.MinimumCodeLength, DataConstants.MaximumCodeLength);
             
             return processedCodeLength; 
         }
@@ -40,13 +40,13 @@ namespace Mastermind.DataAccess
         private static int ProcessNumberOfColours(string numberOfColours)
         {
             
-            var processedNumberOfColours = ConvertToInt(Constants.NumberOfColours, numberOfColours);
+            var processedNumberOfColours = ConvertToInt(DataConstants.NumberOfColours, numberOfColours);
 
             var maxValueOfPeg = Enum.GetValues(typeof(Peg)).Cast<int>().Max();
 
             var maximumNumberOfColours = maxValueOfPeg + 1;
 
-            ThrowExceptionIfValueIsInvalid(Constants.NumberOfColours, processedNumberOfColours, Constants.MinimumNumberOfColours, maximumNumberOfColours);
+            ThrowExceptionIfValueIsInvalid(DataConstants.NumberOfColours, processedNumberOfColours, DataConstants.MinimumNumberOfColours, maximumNumberOfColours);
 
             return processedNumberOfColours;
         }
@@ -54,9 +54,9 @@ namespace Mastermind.DataAccess
 
         private static int ProcessNumberOfTurns(string numberOfTurns)
         {
-            var processedNumberOfTurns = ConvertToInt(Constants.NumberOfTurns, numberOfTurns);
+            var processedNumberOfTurns = ConvertToInt(DataConstants.NumberOfTurns, numberOfTurns);
 
-            ThrowExceptionIfValueIsInvalid(Constants.NumberOfTurns, processedNumberOfTurns, Constants.MinimumNumberOfTurns, Constants.MaximumNumberOfTurns);
+            ThrowExceptionIfValueIsInvalid(DataConstants.NumberOfTurns, processedNumberOfTurns, DataConstants.MinimumNumberOfTurns, DataConstants.MaximumNumberOfTurns);
             
             return processedNumberOfTurns;
         }
@@ -72,7 +72,7 @@ namespace Mastermind.DataAccess
             return result;
         }
 
-        private static void ThrowExceptionIfValueIsInvalid(string configKey, int processedValue, int minValue, int maxValue)  //TODO: too many arguments 
+        private static void ThrowExceptionIfValueIsInvalid(string configKey, int processedValue, int minValue, int maxValue)  //TODO: too many arguments, how to create a const object 
         {
             if (processedValue < minValue || processedValue > maxValue)
             {

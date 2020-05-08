@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mastermind.DataAccess.Enums;
 
 namespace Mastermind.Client.Display
 {
@@ -12,12 +11,11 @@ namespace Mastermind.Client.Display
             Console.WriteLine(message);
         }
 
-        public void Display<T>(List<T> list) //TODO: is this an okay use of generics? 
+        public void Display<T>(List<T> list) where T : struct, IConvertible //TODO: is this an okay use of generics?   
         {
             var stringList = string.Join(", ", list.Select(x => x.ToString()));
 
             Console.WriteLine(stringList);
-
         }
     }
 }

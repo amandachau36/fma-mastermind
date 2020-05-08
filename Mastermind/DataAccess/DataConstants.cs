@@ -1,6 +1,6 @@
 namespace Mastermind.DataAccess
 {
-    public static class Constants
+    public static class DataConstants
     {
         public const string CodeLength = "Code Length";
         

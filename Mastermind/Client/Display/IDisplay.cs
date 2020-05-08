@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Mastermind.DataAccess.Enums;
 
@@ -7,6 +8,6 @@ namespace Mastermind.Client.Display
     {
         void Display(string message);
 
-        void Display<T>(List<T> list);
+        public void Display<T>(List<T> list) where T : struct, IConvertible;
     }
 }

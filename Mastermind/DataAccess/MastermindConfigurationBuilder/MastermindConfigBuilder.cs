@@ -11,17 +11,17 @@ namespace Mastermind.DataAccess.MastermindConfigurationBuilder
 
         public void BuildCodeLength(int codeLength)
         {
-            MastermindConfig[Constants.CodeLength] = codeLength;
+            MastermindConfig[DataConstants.CodeLength] = codeLength;
         }
 
         public void BuildNumberOfColours(int numberOfColours)
         {
-            MastermindConfig[Constants.NumberOfColours] = numberOfColours;
+            MastermindConfig[DataConstants.NumberOfColours] = numberOfColours;
         }
 
         public void BuildNumberOfTurns(int numberOfTurns)
         {
-            MastermindConfig[Constants.NumberOfTurns] = numberOfTurns;
+            MastermindConfig[DataConstants.NumberOfTurns] = numberOfTurns;
         }
         
 

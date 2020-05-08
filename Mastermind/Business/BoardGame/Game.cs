@@ -16,12 +16,15 @@ namespace Mastermind.Business.BoardGame
         private readonly MastermindConfig _config;
         public bool IsWinner { get; private set; }
         public bool IsGameOver { get; private set; }
+
+        public int RemainingTurns { get; private set; }
         public List<Turn> Turns { get; private set;  } = new List<Turn>();
 
         public Game(MastermindConfig config, CodeChecker codeChecker) 
         {
             _config = config;
             _codeChecker = codeChecker;
+            RemainingTurns = config[DataConstants.NumberOfTurns];
         }
 
         public void StartNewGame()
@@ -38,7 +41,7 @@ namespace Mastermind.Business.BoardGame
             
             UpdateTurnHistory(guess, feedback);
             
-            CheckGameStatus(feedback);
+            UpdateGameStatus(feedback);
         }
 
         public List<Peg> GetSecretCode()
@@ -53,23 +56,35 @@ namespace Mastermind.Business.BoardGame
             Turns.Add(turn);
         }
         
-        private void CheckGameStatus(List<FeedBack> feedback)
+        private void UpdateGameStatus(List<FeedBack> feedback)
         {
 
-
-            if (feedback.Count == _config[Constants.CodeLength] && feedback.All(x => x == FeedBack.Black) ) 
+            RemainingTurns -= 1;
+            
+            if (IsGuessCorrect(feedback)) 
             {
                 IsWinner = true;
                 IsGameOver = true;
                 return; 
             }
 
-            if (Turns.Count >= _config[Constants.NumberOfTurns])
+            if (IsNoTurnsRemaining())
             {
                 IsGameOver = true;
             }
             
         }
+
+        private bool IsGuessCorrect(List<FeedBack> feedback)
+        {
+            return feedback.Count == _config[DataConstants.CodeLength] && feedback.All(x => x == FeedBack.Black);
+        }
+
+        private bool IsNoTurnsRemaining()
+        {
+            return RemainingTurns <= 0;
+        }
+        
         
         
     }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Mastermind.Client;
 using Mastermind.Client.InputProcessor;
+using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
 using Xunit;
@@ -16,7 +16,7 @@ namespace Mastermind.Tests.UnitTests.Client
             //arrange
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             
             var consoleInputProcessor = new ConsoleInputProcessor(config);
@@ -39,7 +39,7 @@ namespace Mastermind.Tests.UnitTests.Client
             //arrange
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             var consoleInputProcessor = new ConsoleInputProcessor(config);
             

@@ -31,7 +31,7 @@ namespace Mastermind.Client
         {
             StartGame();
 
-            while (!_game.IsGameOver)  //TODO: display number of turns left
+            while (!_game.IsGameOver) 
             { 
                 var processedInput = CollectAndProcessGuess();
                 
@@ -49,15 +49,15 @@ namespace Mastermind.Client
         {
             _game.StartNewGame();
             
-            _display.Display(Constants.Welcome);
+            _display.Display(ClientConstants.Welcome);
 
-            _display.Display(Constants.Border);
+            _display.Display(ClientConstants.Border);
             
-            _display.Display(Constants.SecretCode);
+            _display.Display(ClientConstants.SecretCode);
             
             _display.Display(_game.GetSecretCode());
 
-            _display.Display(Constants.Border);
+            _display.Display(ClientConstants.Border);
         }
 
         private List<Peg> CollectAndProcessGuess()
@@ -80,7 +80,7 @@ namespace Mastermind.Client
             
             try
             {
-                _display.Display(Constants.PromptGuess);
+                _display.Display(ClientConstants.GuessesLeft + _game.RemainingTurns + ClientConstants.PromptGuess);
                 
                 var input = _collector.Collect();
 
@@ -97,7 +97,6 @@ namespace Mastermind.Client
             return processedInput;
         }
         
-        
         private void CheckGuess(List<Peg> processedInput)
         {
             _game.CheckGuess(processedInput);
@@ -105,7 +104,7 @@ namespace Mastermind.Client
 
         private void ProvideFeedbackToUser()
         {
-            _display.Display(Constants.Feedback); 
+            _display.Display(ClientConstants.Feedback); 
                 
             _display.Display(_game.Turns.Last().FeedBack);
         }
@@ -113,8 +112,8 @@ namespace Mastermind.Client
         private void DisplayWinnerOrLoser()
         {
             _display.Display(_game.IsWinner 
-                ? Constants.Winner 
-                : Constants.Loser);
+                ? ClientConstants.Winner 
+                : ClientConstants.Loser);
         }
     }
 }

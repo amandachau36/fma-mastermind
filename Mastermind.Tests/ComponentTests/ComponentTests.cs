@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
-using Mastermind.Business.CodeGenerator;
 using Mastermind.Client;
 using Mastermind.Client.Display;
 using Mastermind.Client.InputCollector;
@@ -14,7 +13,6 @@ using Mastermind.DataAccess.Enums;
 using Mastermind.Tests.UnitTests.Business;
 using Moq;
 using Xunit;
-using Constants = Mastermind.Client.Constants;
 
 namespace Mastermind.Tests.ComponentTests
 {
@@ -59,24 +57,24 @@ namespace Mastermind.Tests.ComponentTests
            //Assert
             var expectedMessages = new List<string>
             { 
-                Constants.Welcome,
-                Constants.Border,
-                Constants.SecretCode,
+                ClientConstants.Welcome,
+                ClientConstants.Border,
+                ClientConstants.SecretCode,
                 "Blue, Green, Yellow, Green",
-                Constants.Border,
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.Border,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "Black, White",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "White, White, White, White",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "Black, Black, Black, Black",
-                Constants.Winner
+                ClientConstants.Winner
                 
             };
         
@@ -114,6 +112,8 @@ namespace Mastermind.Tests.ComponentTests
                 .Returns("Blue, blue")
                 .Returns("")
                 .Returns("hello")
+                .Returns("blue, green, pink, red")
+                .Returns("grey")
                 .Returns("BLUE, green, YeLLoW, Green");
 
             var gameEngine = new GameEngine(
@@ -128,25 +128,29 @@ namespace Mastermind.Tests.ComponentTests
            //Assert
             var expectedMessages = new List<string>
             { 
-                Constants.Welcome,
-                Constants.Border,
-                Constants.SecretCode,
+                ClientConstants.Welcome,
+                ClientConstants.Border,
+                ClientConstants.SecretCode,
                 "Blue, Green, Yellow, Green",
-                Constants.Border,
-                Constants.PromptGuess,
+                ClientConstants.Border,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 "Error: rainbow is not an invalid colour!",
-                Constants.PromptGuess,
-                $"Error: you must pass in {config[Constants.CodeLength]} colours!",
-                Constants.PromptGuess,
-                $"Error: you must pass in {config[Constants.CodeLength]} colours!",
-                Constants.PromptGuess,
-                $"Error: you must pass in {config[Constants.CodeLength]} colours!",
-                Constants.PromptGuess,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                $"Error: you must pass in {config[DataConstants.CodeLength]} colours!",
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                $"Error: you must pass in {config[DataConstants.CodeLength]} colours!",
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                $"Error: you must pass in {config[DataConstants.CodeLength]} colours!",
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 "Error: hello is not an invalid colour!",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                "Error: pink is not an invalid colour!",
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                "Error: grey is not an invalid colour!",
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "Black, Black, Black, Black",
-                Constants.Winner
+                ClientConstants.Winner
                 
             };
         
@@ -200,36 +204,36 @@ namespace Mastermind.Tests.ComponentTests
            //Assert
             var expectedMessages = new List<string>
             { 
-                Constants.Welcome,
-                Constants.Border,
-                Constants.SecretCode,
+                ClientConstants.Welcome,
+                ClientConstants.Border,
+                ClientConstants.SecretCode,
                 "Blue, Green, Yellow, Green",
-                Constants.Border,
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.Border,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "Black, White",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "White, White, White, White",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 4 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 3 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 2 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.PromptGuess,
-                Constants.Feedback,
+                ClientConstants.GuessesLeft + 1 + ClientConstants.PromptGuess,
+                ClientConstants.Feedback,
                 "",
-                Constants.Loser
+                ClientConstants.Loser
                 
             };
         
@@ -247,7 +251,7 @@ namespace Mastermind.Tests.ComponentTests
                 Messages.Add(message);
             }
 
-            public void Display<T>(List<T> list)
+            public void Display<T>(List<T> list) where T : struct, IConvertible
             {
                 var stringList = string.Join(", ", list.Select(x => x.ToString()));
 

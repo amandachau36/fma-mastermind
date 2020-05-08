@@ -15,7 +15,7 @@ namespace Mastermind.Tests.UnitTests.Business
             //arrange
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             var randomCodeGenerator = new RandomCodeGenerator(config);  
             
@@ -33,7 +33,7 @@ namespace Mastermind.Tests.UnitTests.Business
             //arrange
             var config = new MastermindConfig
             {
-                [Constants.CodeLength] = 4, [Constants.NumberOfColours] = 6, [Constants.NumberOfTurns] = 8
+                [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
             };
             var randomCodeGenerator = new RandomCodeGenerator(config);
             

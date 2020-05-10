@@ -164,24 +164,9 @@ namespace Mastermind.Tests.UnitTests.Business
                 new List<FeedBack> { FeedBack.White, FeedBack.White, FeedBack.White, FeedBack.White },
             };
         }
-
-        
     }
 
-    internal class StaticCodeGenerator : ICodeGenerator
-    {
-        private readonly List<Peg> _secretCode;
-
-        public StaticCodeGenerator(List<Peg> secretCode)
-        {
-            _secretCode = secretCode;
-        }
-        public List<Peg> GenerateSecretCode()
-        {
-            return _secretCode;
-        }
-    }
-    
+ 
     internal class NonRandomizer : IFeedbackRandomizer
     {
         public List<FeedBack> Randomize(List<FeedBack> feedback)
@@ -191,7 +176,4 @@ namespace Mastermind.Tests.UnitTests.Business
     }
 }
 
-// var codeGenerator = new Mock<ICodeGenerator>();
-// codeGenerator
-// .Setup(x => x.GenerateSecretCode())
-// .Returns(() =>  v;
+

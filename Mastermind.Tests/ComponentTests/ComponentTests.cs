@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
+using Mastermind.Business.CodeGenerator;
 using Mastermind.Client;
 using Mastermind.Client.Display;
 using Mastermind.Client.InputCollector;
@@ -234,7 +235,6 @@ namespace Mastermind.Tests.ComponentTests
                 ClientConstants.Feedback,
                 "",
                 ClientConstants.Loser
-                
             };
         
             for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
@@ -243,6 +243,77 @@ namespace Mastermind.Tests.ComponentTests
             }
             //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
         }
+        
+        
+        [Fact]
+        public void It_Should_DisplayDemo_When_UsingConsoleDemoInputCollector_GivenInput()
+        {
+            var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
+
+            var staticCodeGenerate = new  StaticCodeGenerator(new List<Peg>{Peg.Blue, Peg.Green, Peg.Orange, Peg.Red}); 
+            
+            var feedbackRandomizer = new NonRandomizer();
+            
+            var codeChecker = new CodeChecker(staticCodeGenerate, feedbackRandomizer);
+            
+            var game = new Game(config, codeChecker);
+            
+            var inputHappy = new List<string>
+            {
+                "blue, blue, green, green",
+                "Red, blue, red, RED",
+                "Blue, yellow, Green, red",
+                "Blue, Green, PURPLE, Red", 
+                "blue, green, orange, red"
+            };
+            
+            var consoleDisplayStub = new ConsoleDisplayStub();
+            
+            var gameEngine = new GameEngine(consoleDisplayStub, new ConsoleDemoInputCollector(inputHappy, consoleDisplayStub), new ConsoleInputProcessor(config), game);
+            
+            
+           //Act
+           gameEngine.PlayGame();
+           
+           //Assert
+            var expectedMessages = new List<string>
+            { 
+                ClientConstants.Welcome,
+                ClientConstants.Border,
+                ClientConstants.SecretCode,
+                "Blue, Green, Orange, Red",
+                ClientConstants.Border,
+                ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
+                inputHappy[0],
+                ClientConstants.Feedback,
+                "Black, White",
+                ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
+                inputHappy[1],
+                ClientConstants.Feedback,
+                "Black, White",
+                ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
+                inputHappy[2],
+                ClientConstants.Feedback,
+                "Black, Black, White",
+                ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
+                inputHappy[3],
+                ClientConstants.Feedback,
+                "Black, Black, Black",
+                ClientConstants.GuessesLeft + 4 + ClientConstants.PromptGuess,
+                inputHappy[4],
+                ClientConstants.Feedback,
+                "Black, Black, Black, Black",
+                ClientConstants.Winner
+            };
+        
+            for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
+            {
+                Assert.Equal(expectedMessages[i], consoleDisplayStub.Messages[i]);
+            }
+            //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
+        }
+        
+        
         private class ConsoleDisplayStub : IDisplay
         {
             public List<string> Messages = new List<string>();

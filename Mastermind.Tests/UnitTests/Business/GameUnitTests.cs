@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
+using Mastermind.Business.CodeGenerator;
 using Mastermind.Business.Turns;
 using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;

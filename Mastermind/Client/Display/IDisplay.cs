@@ -8,6 +8,6 @@ namespace Mastermind.Client.Display
     {
         void Display(string message);
 
-        public void Display<T>(List<T> list) where T : struct, IConvertible;
+        public void Display<T>(List<T> list);
     }
 }

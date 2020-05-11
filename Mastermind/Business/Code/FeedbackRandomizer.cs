@@ -7,7 +7,7 @@ namespace Mastermind.Business.Code
 {
     public class FeedbackRandomizer : IFeedbackRandomizer
     {
-        public List<FeedBack> Randomize(List<FeedBack> feedback)
+        public List<Feedback> Randomize(List<Feedback> feedback)
         {
             var random = new Random();
             

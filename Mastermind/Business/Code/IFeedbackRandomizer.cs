@@ -5,6 +5,6 @@ namespace Mastermind.Business.Code
 {
     public interface IFeedbackRandomizer
     {
-        public List<FeedBack> Randomize(List<FeedBack> feedback);
+        public List<Feedback> Randomize(List<Feedback> feedback);
     }
 }

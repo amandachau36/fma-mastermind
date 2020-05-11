@@ -10,7 +10,7 @@ namespace Mastermind.Tests.UnitTests.Business
     public class CodeGeneratorUnitTests
     {
         [Fact]
-        public void It_Should_Return_A_SecretCodeWithALengthOfFour()
+        public void It_Should_Return_A_SecretCodeWithALengthOfFour_When_CodeLengthInConfigIsFour()
         {
             //arrange
             var config = new MastermindConfig
@@ -28,7 +28,7 @@ namespace Mastermind.Tests.UnitTests.Business
         }
         
         [Fact]
-        public void It_Should_Return_A_SecretCodeOfColouredPegs()
+        public void It_Should_Return_A_SecretCodeOfColouredPegsWithFlagsFiveOrLess_When_NumberOfColoursInConfigIsSix()
         {
             //arrange
             var config = new MastermindConfig
@@ -43,7 +43,7 @@ namespace Mastermind.Tests.UnitTests.Business
             //assert
             foreach (var peg in secretCode)
             {
-                Assert.True( Enum.IsDefined(typeof(Peg), peg)); 
+                Assert.True( Enum.IsDefined(typeof(Peg), peg) && (int)peg < config[DataConstants.NumberOfColours] );  
             }
         }
         

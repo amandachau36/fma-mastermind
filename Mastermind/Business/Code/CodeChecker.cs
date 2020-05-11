@@ -24,7 +24,7 @@ namespace Mastermind.Business.Code
             SecretCode = _codeGenerator.GenerateSecretCode();
         }
         
-        public List<FeedBack> CheckGuess(List<Peg> guess)
+        public List<Feedback> CheckGuess(List<Peg> guess)
         {
             var localGuess = new List<Peg>(guess); 
             
@@ -39,20 +39,20 @@ namespace Mastermind.Business.Code
             return Randomize(feedback); 
         }
 
-        private List<FeedBack> Randomize(List<FeedBack> feedback)
+        private List<Feedback> Randomize(List<Feedback> feedback)
         {
             return _feedbackRandomizer.Randomize(feedback); 
         }
 
-        private List<FeedBack> CheckForCorrectlyPositionedColours(List<Peg> guess, List<Peg> secretCode)
+        private List<Feedback> CheckForCorrectlyPositionedColours(List<Peg> guess, List<Peg> secretCode)
         {
-            var feedback = new List<FeedBack>();
+            var feedback = new List<Feedback>();
             
             for (var i = guess.Count -1; i >= 0; i--)
             {
                 if (guess[i] != secretCode[i]) continue;
                 
-                feedback.Add(FeedBack.Black);
+                feedback.Add(Feedback.Black);
                 guess.RemoveAt(i);
                 secretCode.RemoveAt(i);
             }
@@ -60,13 +60,13 @@ namespace Mastermind.Business.Code
             return feedback;
         }
 
-        private List<FeedBack> CheckForCorrectColoursAtIncorrectPositions(List<Peg> guess, List<Peg> secretCode)
+        private List<Feedback> CheckForCorrectColoursAtIncorrectPositions(List<Peg> guess, List<Peg> secretCode)
         {
-            var feedback = new List<FeedBack>();
+            var feedback = new List<Feedback>();
             
             foreach (var peg in guess.Where(secretCode.Contains))
             {
-                feedback.Add(FeedBack.White);
+                feedback.Add(Feedback.White);
                 secretCode.Remove(peg);
             }
             

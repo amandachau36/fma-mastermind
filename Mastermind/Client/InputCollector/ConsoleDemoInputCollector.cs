@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Mastermind.Client.Display;
@@ -17,7 +16,7 @@ namespace Mastermind.Client.InputCollector
             _input = input;
             _display = display;
         }
-        public string Collect()  //TODO: Test this
+        public string Collect()  
         {
             Thread.Sleep(1000);
             

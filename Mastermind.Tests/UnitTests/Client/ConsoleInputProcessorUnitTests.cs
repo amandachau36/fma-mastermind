@@ -11,7 +11,7 @@ namespace Mastermind.Tests.UnitTests.Client
     public class ConsoleInputProcessorUnitTests
     {
         [Fact]
-        public void It_Should_Process_ValidInput()
+        public void It_Should_Process_Input_When_Given_ValidInput()
         {
             //arrange
             var config = new MastermindConfig

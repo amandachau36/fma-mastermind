@@ -10,7 +10,7 @@ namespace Mastermind.Tests.UnitTests.Business
     public class CodeUnitTests
     {
         [Fact]
-        public void It_Should_Return_A_KnownSecretCode()
+        public void It_Should_Return_A_KnownSecretCode_When_A_StaticCodeGeneratorIsUsed()
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
@@ -27,7 +27,7 @@ namespace Mastermind.Tests.UnitTests.Business
         
         [Theory]
         [MemberData(nameof(GetGuesses))]
-        public void It_Should_Return_BlackForEveryCorrectlyPositionedColour(List<Peg> guess, List<FeedBack> expectedFeedback)
+        public void It_Should_Return_BlackForEveryCorrectlyPositionedColour_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
@@ -47,32 +47,32 @@ namespace Mastermind.Tests.UnitTests.Business
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange},
-                new List<FeedBack>(),
+                new List<Feedback>(),
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Red, Peg.Orange, Peg.Orange, Peg.Orange},
-                new List<FeedBack> { FeedBack.Black },
+                new List<Feedback> { Feedback.Black },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Red, Peg.Orange, Peg.Orange, Peg.Yellow},
-                new List<FeedBack> { FeedBack.Black, FeedBack.Black },
+                new List<Feedback> { Feedback.Black, Feedback.Black },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow},
-                new List<FeedBack> { FeedBack.Black, FeedBack.Black, FeedBack.Black, FeedBack.Black  },
+                new List<Feedback> { Feedback.Black, Feedback.Black, Feedback.Black, Feedback.Black  },
             };
         }
         
                 
         [Theory]
         [MemberData(nameof(GetGuesses2))]
-        public void It_Should_Return_WhiteForEveryCorrectColourAtIncorrectPosition(List<Peg> guess, List<FeedBack> expectedFeedback)
+        public void It_Should_Return_WhiteForEveryCorrectColourAtIncorrectPosition_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
@@ -92,32 +92,32 @@ namespace Mastermind.Tests.UnitTests.Business
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange},
-                new List<FeedBack>(),
+                new List<Feedback>(),
             };
         
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Red, Peg.Orange, Peg.Orange},
-                new List<FeedBack> { FeedBack.White },
+                new List<Feedback> { Feedback.White },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Red, Peg.Orange, Peg.Blue},
-                new List<FeedBack> { FeedBack.White, FeedBack.White },
+                new List<Feedback> { Feedback.White, Feedback.White },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Yellow, Peg.Red, Peg.Blue, Peg.Green},
-                new List<FeedBack> { FeedBack.White, FeedBack.White, FeedBack.White, FeedBack.White },
+                new List<Feedback> { Feedback.White, Feedback.White, Feedback.White, Feedback.White },
             };
         }
         
         
         [Theory]
         [MemberData(nameof(GetGuesses3))]
-        public void It_Should_Return_WhiteAndBlackPegsCorrectly_WhenGiveAGuess(List<Peg> guess, List<FeedBack> expectedFeedback)
+        public void It_Should_Return_WhiteAndBlackPegsCorrectly_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Blue});
@@ -137,31 +137,31 @@ namespace Mastermind.Tests.UnitTests.Business
             yield return new object[]
             {
                 new List<Peg>{ Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange},
-                new List<FeedBack>(),
+                new List<Feedback>(),
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Blue, Peg.Orange, Peg.Orange, Peg.Blue},
-                new List<FeedBack>{ FeedBack.Black, FeedBack.White},
+                new List<Feedback>{ Feedback.Black, Feedback.White},
             };
         
             yield return new object[]
             {
                 new List<Peg>{ Peg.Blue, Peg.Red, Peg.Green, Peg.Orange},
-                new List<FeedBack> { FeedBack.Black, FeedBack.White, FeedBack.White },
+                new List<Feedback> { Feedback.Black, Feedback.White, Feedback.White },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Blue, Peg.Red, Peg.Green, Peg.Blue},
-                new List<FeedBack> { FeedBack.Black, FeedBack.Black, FeedBack.White, FeedBack.White },
+                new List<Feedback> { Feedback.Black, Feedback.Black, Feedback.White, Feedback.White },
             };
             
             yield return new object[]
             {
                 new List<Peg>{ Peg.Blue, Peg.Red, Peg.Blue, Peg.Green},
-                new List<FeedBack> { FeedBack.White, FeedBack.White, FeedBack.White, FeedBack.White },
+                new List<Feedback> { Feedback.White, Feedback.White, Feedback.White, Feedback.White },
             };
         }
     }
@@ -169,7 +169,7 @@ namespace Mastermind.Tests.UnitTests.Business
  
     internal class NonRandomizer : IFeedbackRandomizer
     {
-        public List<FeedBack> Randomize(List<FeedBack> feedback)
+        public List<Feedback> Randomize(List<Feedback> feedback)
         {
             return feedback;
         }

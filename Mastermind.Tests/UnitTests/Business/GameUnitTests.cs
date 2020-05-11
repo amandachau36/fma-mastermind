@@ -15,7 +15,7 @@ namespace Mastermind.Tests.UnitTests.Business
     public class GameUnitTests
     {
         [Fact]
-        public void It_Should_Contain_AListOfTurns()
+        public void It_Should_Contain_AListOfTurns_When_AGuessIsChecked()
         {
             //arrange 
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
@@ -35,7 +35,7 @@ namespace Mastermind.Tests.UnitTests.Business
             //assert
             var expectedTurn = new Turn(
                 new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow},
-                new List<FeedBack> {FeedBack.Black, FeedBack.White});
+                new List<Feedback> {Feedback.Black, Feedback.White});
         
             var turn = game.Turns[0]; 
             
@@ -44,7 +44,7 @@ namespace Mastermind.Tests.UnitTests.Business
         
         [Theory]
         [MemberData(nameof(GetGuesses))]
-        public void It_Should_Set_IsWinner_And_IsGameOver_To_True_OnlyWhenGuessIsCorrect(List<Peg> guess, bool expectedIsWinner, bool expectedIsGameOver)
+        public void It_Should_SetIsWinnerAndIsGameOver_ToTrue_When_GuessIsCorrect(List<Peg> guess, bool expectedIsWinner, bool expectedIsGameOver)
         {
             //arrange 
             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
@@ -100,7 +100,7 @@ namespace Mastermind.Tests.UnitTests.Business
         
         [Theory]
         [MemberData(nameof(GetNumberOfTurns))]
-        public void It_Should_Set_IsGameOver_To_True_MaxNumberOfGuessesAreReached(int numberOfTurns, bool expectedIsGameOver)
+        public void It_Should_SetIsGameOver_ToTrue_When_MaxNumberOfGuessesAreReached(int numberOfTurns, bool expectedIsGameOver)
         {
              //arrange 
              var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});

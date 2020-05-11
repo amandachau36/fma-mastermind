@@ -1,6 +1,6 @@
 namespace Mastermind.DataAccess.Enums
 {
-    public enum FeedBack
+    public enum Feedback
     {
         White,
         Black,

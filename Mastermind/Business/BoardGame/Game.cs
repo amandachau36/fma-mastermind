@@ -16,7 +16,6 @@ namespace Mastermind.Business.BoardGame
         private readonly MastermindConfig _config;
         public bool IsWinner { get; private set; }
         public bool IsGameOver { get; private set; }
-
         public int RemainingTurns { get; private set; }
         public List<Turn> Turns { get; private set;  } = new List<Turn>();
 
@@ -49,14 +48,14 @@ namespace Mastermind.Business.BoardGame
             return _codeChecker.SecretCode;
         }
 
-        private void UpdateTurnHistory(List<Peg> guess, List<FeedBack> feedback)
+        private void UpdateTurnHistory(List<Peg> guess, List<Feedback> feedback)
         {
             var turn = new Turn(guess, feedback);  
             
             Turns.Add(turn);
         }
         
-        private void UpdateGameStatus(List<FeedBack> feedback)
+        private void UpdateGameStatus(List<Feedback> feedback)
         {
 
             RemainingTurns -= 1;
@@ -68,19 +67,29 @@ namespace Mastermind.Business.BoardGame
                 return; 
             }
 
-            if (IsNoTurnsRemaining())
+            if (HasGameEnded())
             {
                 IsGameOver = true;
             }
             
         }
 
-        private bool IsGuessCorrect(List<FeedBack> feedback)
+        private bool IsGuessCorrect(List<Feedback> feedback)
         {
-            return feedback.Count == _config[DataConstants.CodeLength] && feedback.All(x => x == FeedBack.Black);
+            return IsFeedbackLengthEqualToSecretCodeLength(feedback) && IsAllFeedbackBlack(feedback);
         }
 
-        private bool IsNoTurnsRemaining()
+        private bool IsFeedbackLengthEqualToSecretCodeLength(List<Feedback> feedback)
+        {
+            return feedback.Count == _config[DataConstants.CodeLength];
+        }
+        
+        private bool IsAllFeedbackBlack(List<Feedback> feedback)
+        {
+            return feedback.All(x => x == Feedback.Black);
+        }
+        
+        private bool HasGameEnded()
         {
             return RemainingTurns <= 0;
         }

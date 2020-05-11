@@ -9,22 +9,22 @@ namespace Mastermind.Tests.UnitTests.Business
     public class FeedbackRandomizerUnitTests
     {
         [Fact]
-        public void It_Should_Return_A_SecretCodeOfColouredPegs()
+        public void It_Should_Return_RandomizeFeedback_When_Given_Feedback()
         {
             //arrange
             var feedbackRandomizer = new FeedbackRandomizer();
-            var feedback = new List<FeedBack>
+            var feedback = new List<Feedback>
             {
-                FeedBack.Black,
-                FeedBack.Black,
-                FeedBack.Black,
-                FeedBack.Black,
-                FeedBack.Black,
-                FeedBack.White,
-                FeedBack.White,
-                FeedBack.White,
-                FeedBack.White,
-                FeedBack.White,
+                Feedback.Black,
+                Feedback.Black,
+                Feedback.Black,
+                Feedback.Black,
+                Feedback.Black,
+                Feedback.White,
+                Feedback.White,
+                Feedback.White,
+                Feedback.White,
+                Feedback.White,
             };
             
             //act

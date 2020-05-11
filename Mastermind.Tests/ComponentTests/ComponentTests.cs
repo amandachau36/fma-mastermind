@@ -20,7 +20,7 @@ namespace Mastermind.Tests.ComponentTests
     public class ComponentTests
     {
         [Fact]
-        public void It_Should_DisplayFeedbackAndWinningMessageWhenGiven_ValidInput()
+        public void It_Should_SimulateGamePlay_When_Given_ValidInput()
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
@@ -79,15 +79,12 @@ namespace Mastermind.Tests.ComponentTests
                 
             };
         
-            for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
-            {
-                Assert.Equal(expectedMessages[i], consoleDisplayStub.Messages[i]);
-            }
-            //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
+            Assert.Equal(expectedMessages, consoleDisplayStub.Messages);
+    
         }
         
         [Fact]
-        public void It_Should_DisplayFeedbackAndErrorMessagesWhenGiven_InValidInput()
+        public void It_Should_SimulateGamePlay_When_Given_InValidInput()
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
@@ -154,16 +151,13 @@ namespace Mastermind.Tests.ComponentTests
                 ClientConstants.Winner
                 
             };
+            
+            Assert.Equal(expectedMessages, consoleDisplayStub.Messages);
         
-            for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
-            {
-                Assert.Equal(expectedMessages[i], consoleDisplayStub.Messages[i]);
-            }
-            //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
         }
         
         [Fact]
-        public void It_Should_DisplayLostGame_When_Given_MaxNumberOfIncorrectGuesses()
+        public void It_Should_SimulateGamePlay_When_UserLoses()
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
@@ -236,17 +230,13 @@ namespace Mastermind.Tests.ComponentTests
                 "",
                 ClientConstants.Loser
             };
-        
-            for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
-            {
-                Assert.Equal(expectedMessages[i], consoleDisplayStub.Messages[i]);
-            }
-            //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
+            
+            Assert.Equal(expectedMessages, consoleDisplayStub.Messages );
         }
         
         
         [Fact]
-        public void It_Should_DisplayDemo_When_UsingConsoleDemoInputCollector_GivenInput()
+        public void It_Should_SimulateDemoGame_When_Given_ValidInput()
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
 
@@ -305,12 +295,8 @@ namespace Mastermind.Tests.ComponentTests
                 "Black, Black, Black, Black",
                 ClientConstants.Winner
             };
-        
-            for (var i = 0; i < consoleDisplayStub.Messages.Count; i++)
-            {
-                Assert.Equal(expectedMessages[i], consoleDisplayStub.Messages[i]);
-            }
-            //Assert.True(consoleDisplay.Messages.SequenceEqual(expectedMessages)); 
+            
+            Assert.Equal(expectedMessages, consoleDisplayStub.Messages);
         }
         
         
@@ -322,10 +308,9 @@ namespace Mastermind.Tests.ComponentTests
                 Messages.Add(message);
             }
 
-            public void Display<T>(List<T> list) where T : struct, IConvertible
+            public void Display<T>(List<T> list)
             {
                 var stringList = string.Join(", ", list.Select(x => x.ToString()));
-
                 Messages.Add(stringList);
             }
         }

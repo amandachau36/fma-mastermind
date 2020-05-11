@@ -11,7 +11,7 @@ namespace Mastermind.Client.Display
             Console.WriteLine(message);
         }
 
-        public void Display<T>(List<T> list) where T : struct, IConvertible //TODO: is this an okay use of generics?   
+        public void Display<T>(List<T> list) 
         {
             var stringList = string.Join(", ", list.Select(x => x.ToString()));
 

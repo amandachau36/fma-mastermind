@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
-using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.CodeGenerators;
 using Mastermind.Client;
 using Mastermind.Client.Display;
 using Mastermind.Client.InputCollector;
@@ -24,7 +24,7 @@ namespace Mastermind.Tests.ComponentTests
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
-            var staticCodeGenerator = new StaticCodeGenerator(new List<Peg>
+            var staticCodeGenerator = new CodeGenerator(new List<Peg>
             {
                 Peg.Blue,
                 Peg.Green, 
@@ -66,15 +66,19 @@ namespace Mastermind.Tests.ComponentTests
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "Black, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "White, White, White, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "Black, Black, Black, Black",
+                ClientConstants.Border,
                 ClientConstants.Winner
                 
             };
@@ -84,11 +88,11 @@ namespace Mastermind.Tests.ComponentTests
         }
         
         [Fact]
-        public void It_Should_SimulateGamePlay_When_Given_InValidInput()
+        public void It_Should_SimulateGamePlay_When_Given_InvalidInput()
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
-            var staticCodeGenerator = new StaticCodeGenerator(new List<Peg>
+            var staticCodeGenerator = new CodeGenerator(new List<Peg>
             {
                 Peg.Blue,
                 Peg.Green, 
@@ -132,7 +136,7 @@ namespace Mastermind.Tests.ComponentTests
                 "Blue, Green, Yellow, Green",
                 ClientConstants.Border,
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
-                "Error: rainbow is not an invalid colour!",
+                "Error: rainbow is an invalid colour!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 $"Error: you must pass in {config[DataConstants.CodeLength]} colours!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
@@ -140,14 +144,15 @@ namespace Mastermind.Tests.ComponentTests
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 $"Error: you must pass in {config[DataConstants.CodeLength]} colours!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
-                "Error: hello is not an invalid colour!",
+                "Error: hello is an invalid colour!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
-                "Error: pink is not an invalid colour!",
+                "Error: pink is an invalid colour!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
-                "Error: grey is not an invalid colour!",
+                "Error: grey is an invalid colour!",
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "Black, Black, Black, Black",
+                ClientConstants.Border,
                 ClientConstants.Winner
                 
             };
@@ -161,7 +166,7 @@ namespace Mastermind.Tests.ComponentTests
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
             
-            var staticCodeGenerator = new StaticCodeGenerator(new List<Peg>
+            var staticCodeGenerator = new CodeGenerator(new List<Peg>
             {
                 Peg.Blue,
                 Peg.Green, 
@@ -207,27 +212,35 @@ namespace Mastermind.Tests.ComponentTests
                 ClientConstants.GuessesLeft + 8 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "Black, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "White, White, White, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 4 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 3 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 2 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 1 + ClientConstants.PromptGuess,
                 ClientConstants.Feedback,
                 "",
+                ClientConstants.Border,
                 ClientConstants.Loser
             };
             
@@ -240,7 +253,7 @@ namespace Mastermind.Tests.ComponentTests
         {
             var config = ConfigurationLoader.LoadMastermindConfiguration(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigFiles", "StandardConfig.json"));
 
-            var staticCodeGenerate = new  StaticCodeGenerator(new List<Peg>{Peg.Blue, Peg.Green, Peg.Orange, Peg.Red}); 
+            var staticCodeGenerate = new  CodeGenerator(new List<Peg>{Peg.Blue, Peg.Green, Peg.Orange, Peg.Red}); 
             
             var feedbackRandomizer = new NonRandomizer();
             
@@ -277,22 +290,27 @@ namespace Mastermind.Tests.ComponentTests
                 inputHappy[0],
                 ClientConstants.Feedback,
                 "Black, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 7 + ClientConstants.PromptGuess,
                 inputHappy[1],
                 ClientConstants.Feedback,
                 "Black, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 6 + ClientConstants.PromptGuess,
                 inputHappy[2],
                 ClientConstants.Feedback,
                 "Black, Black, White",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 5 + ClientConstants.PromptGuess,
                 inputHappy[3],
                 ClientConstants.Feedback,
                 "Black, Black, Black",
+                ClientConstants.Border,
                 ClientConstants.GuessesLeft + 4 + ClientConstants.PromptGuess,
                 inputHappy[4],
                 ClientConstants.Feedback,
                 "Black, Black, Black, Black",
+                ClientConstants.Border,
                 ClientConstants.Winner
             };
             
@@ -304,6 +322,16 @@ namespace Mastermind.Tests.ComponentTests
         {
             public List<string> Messages = new List<string>();
             public void Display(string message)
+            {
+                Messages.Add(message);
+            }
+
+            public void DisplayError(string message)
+            {
+                Messages.Add(message);
+            }
+
+            public void DisplayResult(string message)
             {
                 Messages.Add(message);
             }

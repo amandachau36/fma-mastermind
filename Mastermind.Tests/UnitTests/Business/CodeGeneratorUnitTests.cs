@@ -1,5 +1,5 @@
 using System;
-using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.CodeGenerators;
 using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
@@ -46,10 +46,6 @@ namespace Mastermind.Tests.UnitTests.Business
                 Assert.True( Enum.IsDefined(typeof(Peg), peg) && (int)peg < config[DataConstants.NumberOfColours] );  
             }
         }
-        
-        //TODO: Test randomness
-        
-        
-      
+
     }
 }

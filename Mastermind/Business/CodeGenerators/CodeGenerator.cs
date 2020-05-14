@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Mastermind.DataAccess.Enums;
 
-namespace Mastermind.Business.CodeGenerator
+namespace Mastermind.Business.CodeGenerators
 {
-    public class StaticCodeGenerator : ICodeGenerator
+    public class CodeGenerator : ICodeGenerator
     {
         private readonly List<Peg> _secretCode;
 
-        public StaticCodeGenerator(List<Peg> secretCode)
+        public CodeGenerator(List<Peg> secretCode) 
         {
             _secretCode = secretCode;
         }

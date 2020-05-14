@@ -5,7 +5,7 @@ using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;
 using Mastermind.DataAccess.MastermindConfigurationBuilder;
 
-namespace Mastermind.Business.CodeGenerator
+namespace Mastermind.Business.CodeGenerators
 {
     public class RandomCodeGenerator : ICodeGenerator
     {

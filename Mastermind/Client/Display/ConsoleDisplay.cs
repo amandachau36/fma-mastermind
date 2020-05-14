@@ -11,6 +11,24 @@ namespace Mastermind.Client.Display
             Console.WriteLine(message);
         }
 
+        public void DisplayError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            
+            Console.WriteLine(message);
+            
+            Console.ResetColor();
+        }
+
+        public void DisplayResult(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            
+            Console.WriteLine(message);
+            
+            Console.ResetColor();
+        }
+
         public void Display<T>(List<T> list) 
         {
             var stringList = string.Join(", ", list.Select(x => x.ToString()));

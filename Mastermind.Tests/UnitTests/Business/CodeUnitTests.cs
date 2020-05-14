@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mastermind.Business.Code;
-using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.CodeGenerators;
 using Mastermind.DataAccess.Enums;
 using Xunit;
 
@@ -13,7 +13,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_Return_A_KnownSecretCode_When_A_StaticCodeGeneratorIsUsed()
         {
             //arrange
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             
@@ -30,7 +30,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_Return_BlackForEveryCorrectlyPositionedColour_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();
@@ -75,7 +75,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_Return_WhiteForEveryCorrectColourAtIncorrectPosition_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();
@@ -120,7 +120,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_Return_WhiteAndBlackPegsCorrectly_When_Given_ValidGuesses(List<Peg> guess, List<Feedback> expectedFeedback)
         {
             //arrange
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Blue});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Blue});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             code.GenerateSecretCode();

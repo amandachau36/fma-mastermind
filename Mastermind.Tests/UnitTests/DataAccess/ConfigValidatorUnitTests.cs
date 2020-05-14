@@ -13,11 +13,7 @@ namespace Mastermind.Tests.UnitTests.DataAccess
         [MemberData(nameof(GetConfiguration))]
         public void It_Should_ThrowInvalidConfigurationError_WhenGivenInvalidConfiguration(string path, string errorMessage)
         {
-
-            // TODO: put in here instead - instead in config file/easier to read
-            // var config1 = new MastermindConfig( 2, 3, 4) 
-              
-            Action actual = () => ConfigurationLoader.LoadMastermindConfiguration(path);  //TODO: should I make the process methods public so I can test them without the path? 
+            Action actual = () => ConfigurationLoader.LoadMastermindConfiguration(path);  
             
             //assert
             var exception = Assert.Throws<InvalidMastermindConfigurationException>(actual);

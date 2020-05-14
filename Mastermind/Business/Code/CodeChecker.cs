@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.CodeGenerators;
 using Mastermind.DataAccess.Enums;
 
 namespace Mastermind.Business.Code
@@ -15,7 +15,6 @@ namespace Mastermind.Business.Code
         public CodeChecker(ICodeGenerator codeGenerator, IFeedbackRandomizer feedbackRandomizer)
         {
             _codeGenerator = codeGenerator;
-            
             _feedbackRandomizer = feedbackRandomizer;
         }
 
@@ -26,53 +25,62 @@ namespace Mastermind.Business.Code
         
         public List<Feedback> CheckGuess(List<Peg> guess)
         {
-            var localGuess = new List<Peg>(guess); 
+            var correctlyPositionedColours = GetCorrectlyPositionedColours(guess);
+        
+            var blackFeedback = GetBlackFeedback(correctlyPositionedColours);
+
+            var whiteFeedback = GetCorrectColoursAtIncorrectPositions(guess, correctlyPositionedColours);
             
-            var secretCode = new List<Peg>(SecretCode);
+            var allFeedback = blackFeedback.Concat(whiteFeedback).ToList();
+                 
+            return Randomize(allFeedback);
+        }
+        
+        private List<Peg> GetCorrectlyPositionedColours(List<Peg> guess)
+        {
+            return guess.Where((colour, index) => colour == SecretCode[index]).ToList();
+        }
+        
+        private List<Feedback> GetBlackFeedback(List<Peg> correctlyPositionedColours)
+        {
+            return correctlyPositionedColours.Select(p => Feedback.Black).ToList();
+        }
+        
+        private List<Feedback> GetCorrectColoursAtIncorrectPositions(List<Peg> guess, List<Peg> correctlyPositionColours)
+        {
+            var remainingGuessColours = GetRemainingColours(guess, correctlyPositionColours);
 
-            var feedback = CheckForCorrectlyPositionedColours(localGuess, secretCode);
-
-            var whiteFeedback = CheckForCorrectColoursAtIncorrectPositions(localGuess, secretCode);
-
-            feedback.AddRange(whiteFeedback);
-
-            return Randomize(feedback); 
+            var remainingSecretCodeColours = GetRemainingColours(SecretCode, correctlyPositionColours);
+            
+            var whiteFeedback = new List<Feedback>();
+                
+            foreach (var peg in remainingGuessColours.Where(remainingSecretCodeColours.Contains))
+            {
+                whiteFeedback.Add(Feedback.White);
+                remainingSecretCodeColours.Remove(peg);
+            }
+            
+            return whiteFeedback;
         }
 
+        private List<Peg> GetRemainingColours(List<Peg> colouredPegs, List<Peg> correctlyPositionColours)
+        {
+            var remainingColours = colouredPegs.ToList();
+
+            foreach (var colour in correctlyPositionColours)
+            {
+                remainingColours.Remove(colour);
+            }
+
+            return remainingColours;
+        }
+        
+        
         private List<Feedback> Randomize(List<Feedback> feedback)
         {
             return _feedbackRandomizer.Randomize(feedback); 
         }
-
-        private List<Feedback> CheckForCorrectlyPositionedColours(List<Peg> guess, List<Peg> secretCode)
-        {
-            var feedback = new List<Feedback>();
-            
-            for (var i = guess.Count -1; i >= 0; i--)
-            {
-                if (guess[i] != secretCode[i]) continue;
-                
-                feedback.Add(Feedback.Black);
-                guess.RemoveAt(i);
-                secretCode.RemoveAt(i);
-            }
-
-            return feedback;
-        }
-
-        private List<Feedback> CheckForCorrectColoursAtIncorrectPositions(List<Peg> guess, List<Peg> secretCode)
-        {
-            var feedback = new List<Feedback>();
-            
-            foreach (var peg in guess.Where(secretCode.Contains))
-            {
-                feedback.Add(Feedback.White);
-                secretCode.Remove(peg);
-            }
-            
-            return feedback;
-
-        }
+        
         
     }
 }

@@ -24,7 +24,7 @@ namespace Mastermind.Client.InputCollector
             _display.Display(_input[i]);
             _inputIndex ++;
             
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
             
             return _input[i]; 
         }

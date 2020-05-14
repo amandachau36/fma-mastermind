@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Mastermind.DataAccess.Enums;
 
-namespace Mastermind.Business.CodeGenerator
+namespace Mastermind.Business.CodeGenerators
 {
     public interface ICodeGenerator
     {

@@ -82,7 +82,7 @@ namespace Mastermind.Tests.UnitTests.Client
             yield return new object[]
             {
                 "Red, Red, Rainbow, Red",
-                "Error: Rainbow is not an invalid colour!"
+                "Error: Rainbow is an invalid colour!"
             };
 
             

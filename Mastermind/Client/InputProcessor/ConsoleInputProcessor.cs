@@ -19,21 +19,23 @@ namespace Mastermind.Client.InputProcessor
         {
             var colourMatches = Regex.Matches(input, "[a-zA-z]+");
 
-            var colours = new List<Peg>();
+            var colouredPegs = new List<Peg>();
             
             foreach (Match match in colourMatches)
             {
                 foreach (Capture capture in match.Captures)
                 {
                     var peg = ConvertToPeg(capture.Value);
-                    
-                    colours.Add(peg);
+                    colouredPegs.Add(peg);
                 }
             }
+
+            if (colouredPegs.Count != _mastermindConfig[DataConstants.CodeLength])
+            {
+                ThrowInvalidInputExceptionForInvalidListLengths();
+            }
             
-            ThrowInvalidInputExceptionForInvalidListLengths(colours.Count);
-            
-            return colours; 
+            return colouredPegs; 
             
         }
 
@@ -41,27 +43,28 @@ namespace Mastermind.Client.InputProcessor
         {
             if (!Enum.TryParse(stringPeg, true, out Peg peg))
             {
-                throw new InvalidInputException($"Error: {stringPeg} is not an invalid colour!");
+                ThrowInvalidInputExceptionForInvalidColours(stringPeg);
             }
 
             var maxPegFlag = _mastermindConfig[DataConstants.NumberOfColours] - 1;
 
             if ((int) peg > maxPegFlag)
             {
-                throw new InvalidInputException($"Error: {stringPeg} is not an invalid colour!");
+                ThrowInvalidInputExceptionForInvalidColours(stringPeg);
             }
 
             return peg;
         }
         
         
-        private void ThrowInvalidInputExceptionForInvalidListLengths(int lengthOfList)
+        private void ThrowInvalidInputExceptionForInvalidListLengths()
         {
-            if (lengthOfList != _mastermindConfig[DataConstants.CodeLength])
-            {
-                throw new InvalidInputException($"Error: you must pass in {_mastermindConfig[DataConstants.CodeLength]} colours!");  
-            }
+            throw new InvalidInputException($"Error: you must pass in {_mastermindConfig[DataConstants.CodeLength]} colours!");
+        }
 
+        private void ThrowInvalidInputExceptionForInvalidColours(string stringPeg)
+        {
+            throw new InvalidInputException($"Error: {stringPeg} is an invalid colour!"); 
         }
         
         

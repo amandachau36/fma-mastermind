@@ -15,14 +15,12 @@ namespace Mastermind.DataAccess
                 .Build();
             
             var codeLength = ProcessCodeLength(config[DataConstants.CodeLength]);
-
             var numberOfColours = ProcessNumberOfColours(config[DataConstants.NumberOfColours]);
-
             var numberOfTurns = ProcessNumberOfTurns(config[DataConstants.NumberOfTurns]);
             
-            var configBuilder = new MastermindConfigBuilder();
-            configBuilder.BuildCodeLength(codeLength);
-            configBuilder.BuildNumberOfColours(numberOfColours); // TODO: all this make this required
+            var configBuilder = new MastermindConfigBuilder(); 
+            configBuilder.BuildCodeLength(codeLength); 
+            configBuilder.BuildNumberOfColours(numberOfColours); 
             configBuilder.BuildNumberOfTurns(numberOfTurns);
             
             return configBuilder.MastermindConfig;
@@ -39,7 +37,6 @@ namespace Mastermind.DataAccess
 
         private static int ProcessNumberOfColours(string numberOfColours)
         {
-            
             var processedNumberOfColours = ConvertToInt(DataConstants.NumberOfColours, numberOfColours);
 
             var maxValueOfPeg = Enum.GetValues(typeof(Peg)).Cast<int>().Max();
@@ -72,7 +69,7 @@ namespace Mastermind.DataAccess
             return result;
         }
 
-        private static void ThrowExceptionIfValueIsInvalid(string configKey, int processedValue, int minValue, int maxValue)  //TODO: too many arguments, how to create a const object 
+        private static void ThrowExceptionIfValueIsInvalid(string configKey, int processedValue, int minValue, int maxValue) 
         {
             if (processedValue < minValue || processedValue > maxValue)
             {

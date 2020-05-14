@@ -17,7 +17,7 @@ namespace Mastermind.Business.BoardGame
         public bool IsWinner { get; private set; }
         public bool IsGameOver { get; private set; }
         public int RemainingTurns { get; private set; }
-        public List<Turn> Turns { get; private set;  } = new List<Turn>();
+        public List<Turn> Turns { get; private set;  }
 
         public Game(MastermindConfig config, CodeChecker codeChecker) 
         {
@@ -34,14 +34,18 @@ namespace Mastermind.Business.BoardGame
             Turns = new List<Turn>();
         }
         
-        public void CheckGuess(List<Peg> guess)
+        public List<Feedback> CheckGuess(List<Peg> guess)
         {
-            var feedback = _codeChecker.CheckGuess(guess);
-            
-            UpdateTurnHistory(guess, feedback);
+            return _codeChecker.CheckGuess(guess);
+        }
+
+        public void UpdateGame(List<Peg> guess, List<Feedback> feedback)
+        {
+            UpdateTurnHistory(guess, feedback);  
             
             UpdateGameStatus(feedback);
         }
+        
 
         public List<Peg> GetSecretCode()
         {
@@ -93,8 +97,6 @@ namespace Mastermind.Business.BoardGame
         {
             return RemainingTurns <= 0;
         }
-        
-        
         
     }
 }

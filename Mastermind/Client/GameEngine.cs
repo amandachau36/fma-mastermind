@@ -19,7 +19,7 @@ namespace Mastermind.Client
 
         private bool _collectingInputIsComplete;
 
-        public GameEngine(IDisplay display, ICollector collector, IInputProcessor processor, Game game)  //need to inject config?  
+        public GameEngine(IDisplay display, ICollector collector, IInputProcessor processor, Game game) 
         {
             _display = display;
             _collector = collector;
@@ -34,11 +34,12 @@ namespace Mastermind.Client
             while (!_game.IsGameOver) 
             { 
                 var processedInput = CollectAndProcessGuess();
-                
-                CheckGuess(processedInput);
-                
-                ProvideFeedbackToUser();
 
+                var feedback = _game.CheckGuess(processedInput);
+                
+                _game.UpdateGame(processedInput,feedback);
+                
+                ProvideFeedbackToUser(feedback); 
             }
 
             DisplayWinnerOrLoser();
@@ -76,7 +77,7 @@ namespace Mastermind.Client
         
         private List<Peg> TryToProcessInput()
         {
-            var processedInput = new List<Peg>();  //TODO: is okay practice? 
+            var processedInput = new List<Peg>(); 
             
             try
             {
@@ -87,31 +88,27 @@ namespace Mastermind.Client
                 processedInput = _processor.Process(input);
 
                 _collectingInputIsComplete = true;
-
             }
             catch (Exception e)
             {
-                _display.Display(e.Message);
+                _display.DisplayError(e.Message);
             }
             
             return processedInput;
         }
         
-        private void CheckGuess(List<Peg> processedInput)
-        {
-            _game.CheckGuess(processedInput);
-        }
-
-        private void ProvideFeedbackToUser()
+        private void ProvideFeedbackToUser(List<Feedback> feedback)
         {
             _display.Display(ClientConstants.Feedback); 
                 
-            _display.Display(_game.Turns.Last().FeedBack);
+            _display.Display(feedback);
+            
+            _display.Display(ClientConstants.Border);
         }
 
         private void DisplayWinnerOrLoser()
         {
-            _display.Display(_game.IsWinner 
+            _display.DisplayResult(_game.IsWinner 
                 ? ClientConstants.Winner 
                 : ClientConstants.Loser);
         }

@@ -2,7 +2,7 @@ namespace Mastermind.DataAccess.MastermindConfigurationBuilder
 {
     public class MastermindConfigBuilder 
     {
-        public MastermindConfig MastermindConfig { get; }
+        public MastermindConfig MastermindConfig { get; } 
 
         public MastermindConfigBuilder()
         {

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Mastermind.Business.BoardGame;
 using Mastermind.Business.Code;
-using Mastermind.Business.CodeGenerator;
+using Mastermind.Business.CodeGenerators;
 using Mastermind.Business.Turns;
 using Mastermind.DataAccess;
 using Mastermind.DataAccess.Enums;
@@ -18,7 +17,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_Contain_AListOfTurns_When_AGuessIsChecked()
         {
             //arrange 
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             var config = new MastermindConfig
@@ -30,7 +29,8 @@ namespace Mastermind.Tests.UnitTests.Business
             
             //act
             var guess = new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow};
-            game.CheckGuess(guess);
+            var feedback = game.CheckGuess(guess);
+            game.UpdateGame(guess, feedback);
             
             //assert
             var expectedTurn = new Turn(
@@ -47,7 +47,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_SetIsWinnerAndIsGameOver_ToTrue_When_GuessIsCorrect(List<Peg> guess, bool expectedIsWinner, bool expectedIsGameOver)
         {
             //arrange 
-            var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+            var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
             var nonRandomizer = new NonRandomizer();
             var code = new CodeChecker(codeGenerator, nonRandomizer);
             var config = new MastermindConfig
@@ -59,7 +59,8 @@ namespace Mastermind.Tests.UnitTests.Business
            
             
             //act
-            game.CheckGuess(guess);
+            var feedback = game.CheckGuess(guess);
+            game.UpdateGame(guess, feedback);
             
             //assert
             Assert.Equal(expectedIsWinner, game.IsWinner);
@@ -103,7 +104,7 @@ namespace Mastermind.Tests.UnitTests.Business
         public void It_Should_SetIsGameOver_ToTrue_When_MaxNumberOfGuessesAreReached(int numberOfTurns, bool expectedIsGameOver)
         {
              //arrange 
-             var codeGenerator = new StaticCodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
+             var codeGenerator = new CodeGenerator(new List<Peg> {Peg.Red, Peg.Blue, Peg.Green, Peg.Yellow});
              var nonRandomizer = new NonRandomizer();
              var code = new CodeChecker(codeGenerator, nonRandomizer);
              var config = new MastermindConfig
@@ -111,19 +112,21 @@ namespace Mastermind.Tests.UnitTests.Business
                  [DataConstants.CodeLength] = 4, [DataConstants.NumberOfColours] = 6, [DataConstants.NumberOfTurns] = 8
              };
              var game = new Game(config, code);
-             code.GenerateSecretCode();
+             game.StartNewGame();
         
         
              for (var i = 0; i < numberOfTurns; i++)
              {
                  var guess = new List<Peg> {Peg.Blue, Peg.Orange, Peg.Orange, Peg.Yellow};
-                 game.CheckGuess(guess);
+                 var feedback = game.CheckGuess(guess);
+                 game.UpdateGame(guess, feedback);
              }
              
             
              //act
              var finalGuess = new List<Peg> {Peg.Orange, Peg.Orange, Peg.Orange, Peg.Orange};
-             game.CheckGuess(finalGuess);
+             var finalFeedback = game.CheckGuess(finalGuess);
+             game.UpdateGame(finalGuess, finalFeedback);
         
              
              

@@ -16,6 +16,6 @@ namespace Mastermind.Client
 
         public const string Loser = "\nGame over, you lose!";
 
-        public static readonly string Border = new string('=', 33);
+        public static readonly string Border = new string('=', 50);
     }
 }

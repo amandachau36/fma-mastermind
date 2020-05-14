@@ -46,7 +46,7 @@ namespace Mastermind
                  "blue, green, orange, red"
              };
             
-            DemoGame(input2); //TODO: scripted game to demostrate how it works 
+            //DemoGame(input2); 
             
         }
 

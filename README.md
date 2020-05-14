@@ -20,5 +20,5 @@ cd Mastermind/Mastermind.Tests
 ```
 
 ```
-dotnet tests
+dotnet test
 ```
